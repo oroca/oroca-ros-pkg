@@ -1,1 +1,1 @@
-oroca-ros-pkg is collection of OROCA's ROS(Robot Operating System) packages.
+oroca-ros-pkg is collection of OROCA ROS(Robot Operating System) packages.
