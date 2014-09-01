@@ -1,12 +1,19 @@
 <?xml version="1.0"?>
+
 <package>
+
   <name>kobuki_tf</name>
-  <version>0.0.0</version>
+  <version>0.0.1</version>
   <description>The kobuki_tf package</description>
 
-  <maintainer email="rt@todo.todo">rt</maintainer>
+  <maintainer email="passionvirus@gmail.com">Yoonseok Pyo</maintainer>
 
-  <license>TODO</license>
+  <url type="website">http://oroca.org/</url>
+  <url type="git">https://github.com/oroca/oroca-ros-pkg</url>
+
+  <license>The MIT License</license>
+
+  <author email="passionvirus@gmail.com">Yoonseok Pyo</author>
 
   <buildtool_depend>catkin</buildtool_depend>
 
@@ -18,7 +25,7 @@
   <run_depend>roscpp</run_depend>
   <run_depend>tf</run_depend>
 
-
   <export>
   </export>
+
 </package>
