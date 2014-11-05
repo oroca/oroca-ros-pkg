@@ -1,5 +1,5 @@
 #!/bin/bash
-# The MIT License (MIT)
+# The BSD License
 # Copyright (c) 2014 OROCA and ROS Korea Users Group
 
 version=`lsb_release -sc`
