@@ -17,6 +17,17 @@ echo "[Update & upgrade the package]"
 sudo apt-get update -qq
 sudo apt-get upgrade -qq
 
+echo "[Check the 14.04.2 TLS issue]"
+relesenum=`grep DISTRIB_DESCRIPTION /etc/*-release | awk -F 'Ubuntu ' '{print $2}' | awk -F ' LTS' '{print $1}'`
+if [ "$relesenum" = "14.04.2" ]
+then
+  echo "Your ubuntu version is $relesenum"
+  echo "Intstall the libgl1-mesa-dev-lts-utopic package to solve the dependency issues during the ROS installation"
+  sudo apt-get install libgl1-mesa-dev-lts-utopic
+else
+  echo "Your ubuntu version is $relesenum"
+fi
+
 echo "[Installing chrony and setting the ntpdate]"
 sudo apt-get install -y chrony
 sudo ntpdate ntp.ubuntu.com
