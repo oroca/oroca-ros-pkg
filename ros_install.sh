@@ -2,6 +2,31 @@
 # The BSD License
 # Copyright (c) 2014 OROCA and ROS Korea Users Group
 
+function usage {
+    # Print out usage of this script.
+    echo >&2 "usage: $0 [catkin workspace name (default:catkin_ws)] [ROS distro (default: indigo)"
+    echo >&2 "          [-h|--help] Print help message."
+    exit 0
+}
+# Parse command line. If the number of argument differs from what is expected, call `usage` function.
+OPT=`getopt -o h -l help -- $*`
+if [ $# != 2 ]; then
+    usage
+fi
+eval set -- $OPT
+while [ -n "$1" ] ; do
+    case $1 in
+        -h|--help) usage ;;
+        --) shift; break;;
+        *) echo "Unknown option($1)"; usage;;
+    esac
+done
+
+name_catkinws=$1
+name_catkinws=${name_catkinws:="catkin_ws"}
+name_ros_distro=$2
+name_ros_distro=${name_ros_distro:="indigo"}
+
 version=`lsb_release -sc`
 
 echo "[Checking the ubuntu version]"
@@ -48,24 +73,24 @@ sudo apt-get update -qq
 sudo apt-get upgrade -qq
 
 echo "[Installing ROS]"
-sudo apt-get install -y ros-indigo-desktop-full ros-indigo-rqt-*
+sudo apt-get install -y ros-$name_ros_distro-desktop-full ros-$name_ros_distro-rqt-*
 
 echo "[rosdep init and python-rosinstall]"
 sudo sh -c "rosdep init"
 rosdep update
-. /opt/ros/indigo/setup.sh
+. /opt/ros/$name_ros_distro/setup.sh
 sudo apt-get install -y python-rosinstall
 
 echo "[Making the catkin workspace and testing the catkin_make]"
-mkdir -p ~/catkin_ws/src
-cd ~/catkin_ws/src
+mkdir -p ~/$name_catkinws/src
+cd ~/$name_catkinws/src
 catkin_init_workspace
-cd ~/catkin_ws/
+cd ~/$name_catkinws/
 catkin_make
 
 echo "[Setting the ROS evironment]"
-sh -c "echo \"source /opt/ros/indigo/setup.bash\" >> ~/.bashrc"
-sh -c "echo \"source ~/catkin_ws/devel/setup.bash\" >> ~/.bashrc"
+sh -c "echo \"source /opt/ros/$name_ros_distro/setup.bash\" >> ~/.bashrc"
+sh -c "echo \"source ~/$name_catkinws/devel/setup.bash\" >> ~/.bashrc"
 sh -c "echo \"export ROS_MASTER_URI=http://localhost:11311\" >> ~/.bashrc"
 sh -c "echo \"export ROS_HOSTNAME=localhost\" >> ~/.bashrc"
 
