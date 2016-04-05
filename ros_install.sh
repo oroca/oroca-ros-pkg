@@ -47,7 +47,7 @@ relesenum=`grep DISTRIB_DESCRIPTION /etc/*-release | awk -F 'Ubuntu ' '{print $2
 if [ "$relesenum" = "14.04.2" ]
 then
   echo "Your ubuntu version is $relesenum"
-  echo "Intstall the libgl1-mesa-dev-lts-utopic package to solve the dependency issues during the ROS installation"
+  echo "Intstall the libgl1-mesa-dev-lts-utopic package to solve the dependency issues for the ROS installation specifically on $relesenum"
   sudo apt-get install -y libgl1-mesa-dev-lts-utopic
 else
   echo "Your ubuntu version is $relesenum"
