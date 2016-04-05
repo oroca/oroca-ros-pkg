@@ -31,10 +31,10 @@ version=`lsb_release -sc`
 
 echo "[Checking the ubuntu version]"
 case $version in
-  "saucy" | "trusty")
+  "saucy" | "trusty" | "vivid" | "wily" | "xenial")
   ;;
   *)
-    echo "[This script will only work on ubuntu saucy(13.10) or trusty(14.04)]"
+    echo "ERROR: This script will only work on Ubuntu Saucy(13.10) / Trusty(14.04) / Vivid / Wily / Xenial. Exit."
     exit 0
 esac
 
