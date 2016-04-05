@@ -2,6 +2,8 @@
 # The BSD License
 # Copyright (c) 2014 OROCA and ROS Korea Users Group
 
+set -x
+
 function usage {
     # Print out usage of this script.
     echo >&2 "usage: $0 [catkin workspace name (default:catkin_ws)] [ROS distro (default: indigo)"
