@@ -2,6 +2,8 @@
 # The BSD License
 # Copyright (c) 2014 OROCA and ROS Korea Users Group
 
+set -x
+
 function usage {
     # Print out usage of this script.
     echo >&2 "usage: $0 [catkin workspace name (default:catkin_ws)] [ROS distro (default: indigo)"
@@ -31,10 +33,10 @@ version=`lsb_release -sc`
 
 echo "[Checking the ubuntu version]"
 case $version in
-  "saucy" | "trusty")
+  "saucy" | "trusty" | "vivid" | "wily" | "xenial")
   ;;
   *)
-    echo "[This script will only work on ubuntu saucy(13.10) or trusty(14.04)]"
+    echo "ERROR: This script will only work on Ubuntu Saucy(13.10) / Trusty(14.04) / Vivid / Wily / Xenial. Exit."
     exit 0
 esac
 
@@ -47,7 +49,7 @@ relesenum=`grep DISTRIB_DESCRIPTION /etc/*-release | awk -F 'Ubuntu ' '{print $2
 if [ "$relesenum" = "14.04.2" ]
 then
   echo "Your ubuntu version is $relesenum"
-  echo "Intstall the libgl1-mesa-dev-lts-utopic package to solve the dependency issues during the ROS installation"
+  echo "Intstall the libgl1-mesa-dev-lts-utopic package to solve the dependency issues for the ROS installation specifically on $relesenum"
   sudo apt-get install -y libgl1-mesa-dev-lts-utopic
 else
   echo "Your ubuntu version is $relesenum"
