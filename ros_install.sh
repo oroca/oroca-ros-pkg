@@ -6,7 +6,7 @@ set -x
 
 function usage {
     # Print out usage of this script.
-    echo >&2 "usage: $0 [catkin workspace name (default:catkin_ws)] [ROS distro (default: indigo)"
+    echo >&2 "usage: $0 [catkin workspace name (default:catkin_ws)] [ROS distro (default: kinetic)"
     echo >&2 "          [-h|--help] Print help message."
     exit 0
 }
@@ -27,33 +27,22 @@ done
 name_catkinws=$1
 name_catkinws=${name_catkinws:="catkin_ws"}
 name_ros_distro=$2
-name_ros_distro=${name_ros_distro:="indigo"}
+name_ros_distro=${name_ros_distro:="kinetic"}
 
 version=`lsb_release -sc`
 
 echo "[Checking the ubuntu version]"
 case $version in
-  "saucy" | "trusty" | "vivid" | "wily" | "xenial")
+  "wily" | "xenial")
   ;;
   *)
-    echo "ERROR: This script will only work on Ubuntu Saucy(13.10) / Trusty(14.04) / Vivid / Wily / Xenial. Exit."
+    echo "ERROR: This script will only work on Ubuntu Wily(15.10) and Xenial(16.04). Exit."
     exit 0
 esac
 
 echo "[Update & upgrade the package]"
 sudo apt-get update -qq
 sudo apt-get upgrade -qq
-
-echo "[Check the 14.04.2 TLS issue]"
-relesenum=`grep DISTRIB_DESCRIPTION /etc/*-release | awk -F 'Ubuntu ' '{print $2}' | awk -F ' LTS' '{print $1}'`
-if [ "$relesenum" = "14.04.2" ]
-then
-  echo "Your ubuntu version is $relesenum"
-  echo "Intstall the libgl1-mesa-dev-lts-utopic package to solve the dependency issues for the ROS installation specifically on $relesenum"
-  sudo apt-get install -y libgl1-mesa-dev-lts-utopic
-else
-  echo "Your ubuntu version is $relesenum"
-fi
 
 echo "[Installing chrony and setting the ntpdate]"
 sudo apt-get install -y chrony
@@ -67,7 +56,7 @@ fi
 echo "[Download the ROS keys]"
 roskey=`apt-key list | grep "ROS builder"`
 if [ -z "$roskey" ]; then
-  wget --quiet https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -O - | sudo apt-key add -
+  sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 0xB01FA116
 fi
 
 echo "[Update & upgrade the package]"
