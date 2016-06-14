@@ -1,8 +1,33 @@
 #!/bin/bash
 # The BSD License
 # Copyright (c) 2014 OROCA and ROS Korea Users Group
-name_catkinws="catkin_ws"
-name_ros_distro="kinetic"
+
+set -x
+
+function usage {
+    # Print out usage of this script.
+    echo >&2 "usage: $0 [catkin workspace name (default:catkin_ws)] [ROS distro (default: kinetic)"
+    echo >&2 "          [-h|--help] Print help message."
+    exit 0
+}
+# Parse command line. If the number of argument differs from what is expected, call `usage` function.
+OPT=`getopt -o h -l help -- $*`
+if [ $# != 2 ]; then
+    usage
+fi
+eval set -- $OPT
+while [ -n "$1" ] ; do
+    case $1 in
+        -h|--help) usage ;;
+        --) shift; break;;
+        *) echo "Unknown option($1)"; usage;;
+    esac
+done
+
+name_catkinws=$1
+name_catkinws=${name_catkinws:="catkin_ws"}
+name_ros_distro=$2
+name_ros_distro=${name_ros_distro:="kinetic"}
 
 version=`lsb_release -sc`
 
