@@ -80,6 +80,15 @@ cd ~/$name_catkinws/
 catkin_make
 
 echo "[Setting the ROS evironment]"
+sh -c "echo \"alias eb='gedit ~/.bashrc'\" >> ~/.bashrc"
+sh -c "echo \"alias sb='source ~/.bashrc'\" >> ~/.bashrc"
+sh -c "echo \"alias agi='sudo apt-get install'\" >> ~/.bashrc"
+sh -c "echo \"alias gs='git status'\" >> ~/.bashrc"
+sh -c "echo \"alias gp='git pull'\" >> ~/.bashrc"
+sh -c "echo \"alias cw='cd ~/catkin_ws'\" >> ~/.bashrc"
+sh -c "echo \"alias cs='cd ~/catkin_ws/src'\" >> ~/.bashrc"
+sh -c "echo \"alias cm='cd ~/catkin_ws && catkin_make'\" >> ~/.bashrc"
+
 sh -c "echo \"source /opt/ros/$name_ros_distro/setup.bash\" >> ~/.bashrc"
 sh -c "echo \"source ~/$name_catkinws/devel/setup.bash\" >> ~/.bashrc"
 sh -c "echo \"export ROS_MASTER_URI=http://localhost:11311\" >> ~/.bashrc"
