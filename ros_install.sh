@@ -45,7 +45,7 @@ sudo apt-get update -qq
 sudo apt-get upgrade -qq
 
 echo "[Installing chrony and setting the ntpdate]"
-sudo apt-get install -y chrony
+sudo apt-get install -y chrony ntpdate
 sudo ntpdate ntp.ubuntu.com
 
 echo "[Add the ROS repository]"
