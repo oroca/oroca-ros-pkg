@@ -1,7 +1,6 @@
 #!/bin/bash
 # The BSD License
 # Copyright (c) 2014 OROCA and ROS Korea Users Group
-
 name_catkinws="catkin_ws"
 name_ros_distro="kinetic"
 
