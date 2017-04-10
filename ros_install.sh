@@ -41,8 +41,8 @@ case $version in
 esac
 
 echo "[Update & upgrade the package]"
-sudo apt-get update -qq
-sudo apt-get upgrade -qq
+sudo apt-get update
+sudo apt-get upgrade
 
 echo "[Check the 14.04.2 TLS issue]"
 relesenum=`grep DISTRIB_DESCRIPTION /etc/*-release | awk -F 'Ubuntu ' '{print $2}' | awk -F ' LTS' '{print $1}'`
@@ -71,8 +71,8 @@ if [ -z "$roskey" ]; then
 fi
 
 echo "[Update & upgrade the package]"
-sudo apt-get update -qq
-sudo apt-get upgrade -qq
+sudo apt-get update
+sudo apt-get upgrade
 
 echo "[Installing ROS]"
 sudo apt-get install -y ros-$name_ros_distro-desktop-full ros-$name_ros_distro-rqt-*
