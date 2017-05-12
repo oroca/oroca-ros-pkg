@@ -41,8 +41,8 @@ case $version in
 esac
 
 echo "[Update & upgrade the package]"
-sudo apt-get update -qq
-sudo apt-get upgrade -qq
+sudo apt-get update
+sudo apt-get upgrade
 
 echo "[Installing chrony and setting the ntpdate]"
 sudo apt-get install -y chrony ntpdate
@@ -56,12 +56,12 @@ fi
 echo "[Download the ROS keys]"
 roskey=`apt-key list | grep "ROS builder"`
 if [ -z "$roskey" ]; then
-  sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 0xB01FA116
+  sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 421C365BD9FF1F717815A3895523BAEEB01FA116
 fi
 
 echo "[Update & upgrade the package]"
-sudo apt-get update -qq
-sudo apt-get upgrade -qq
+sudo apt-get update
+sudo apt-get upgrade
 
 echo "[Installing ROS]"
 sudo apt-get install -y ros-$name_ros_distro-desktop-full ros-$name_ros_distro-rqt-*
