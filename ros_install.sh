@@ -65,7 +65,10 @@ if [ ! -e /etc/apt/sources.list.d/ros-latest.list ]; then
 fi
 
 echo "[Download the ROS keys]"
-sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 421C365BD9FF1F717815A3895523BAEEB01FA116
+roskey=`apt-key list | grep "ROS builder"`
+if [ -z "$roskey" ]; then
+  wget --quiet https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -O - | sudo apt-key add -
+fi
 
 echo "[Update & upgrade the package]"
 sudo apt-get update
