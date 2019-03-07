@@ -65,9 +65,23 @@ if [ ! -e /etc/apt/sources.list.d/ros-latest.list ]; then
 fi
 
 echo "[Download the ROS keys]"
-roskey=`apt-key list | grep "ROS builder"`
+roskey=$(apt-key list | grep "ROS Builder")
 if [ -z "$roskey" ]; then
-  wget --quiet https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -O - | sudo apt-key add -
+  if [ -n "$(command -v wget)" ]; then
+    tool="wget --quiet -O -"
+  elif [ -n "$(command -v curl)" ]; then
+    tool="curl --silent"
+  else
+    tool=""
+  fi
+  if [ -n "$tool" ]; then
+    $tool "https://raw.githubusercontent.com/ros/rosdistro/master/ros.key" | sudo apt-key add -
+  else
+    echo "Error: curl or wget not found"
+  fi
+  unset tool
+else
+  echo "ROS key is already installed"
 fi
 
 echo "[Update & upgrade the package]"
